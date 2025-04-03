@@ -45,8 +45,19 @@ def add_employee():
     db.session.commit()
     return jsonify({'message': 'Employee added', 'employee': data}), 201
 
+# Get All Employees
+@app.route('/demo/api/c/employees/getall', methods=['GET'])
+@require_api_key
+def get_all_employees():
+    employees = Employee.query.all()
+    employee_list = [{
+        'id': emp.id, 'name': emp.name, 'email': emp.email,
+        'phone': emp.phone, 'department': emp.department, 'status': emp.status
+    } for emp in employees]
+    return jsonify({'employees': employee_list})
+
 # Get Employee
-@app.route('/demo/api/c/employees/<int:id>', methods=['GET'])
+@app.route('/demo/api/c/employee/get/<int:id>', methods=['GET'])
 @require_api_key
 def get_employee(id):
     employee = Employee.query.get(id)
@@ -56,7 +67,7 @@ def get_employee(id):
                     'phone': employee.phone, 'department': employee.department, 'status': employee.status})
 
 # Update Employee
-@app.route('/demo/api/c/employees/<int:id>', methods=['PUT'])
+@app.route('/demo/api/c/employee/update/<int:id>', methods=['PUT'])
 @require_api_key
 def update_employee(id):
     employee = Employee.query.get(id)
@@ -69,7 +80,7 @@ def update_employee(id):
     return jsonify({'message': 'Employee updated'})
 
 # Delete Employee
-@app.route('/demo/api/c/employees/<int:id>', methods=['DELETE'])
+@app.route('/demo/api/c/employee/delete/<int:id>', methods=['DELETE'])
 @require_api_key
 def delete_employee(id):
     employee = Employee.query.get(id)

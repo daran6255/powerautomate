@@ -1,0 +1,76 @@
+Step 1: Open Power Automate
+	Go to Power Automate Online.
+	Click on "Data" in the left navigation panel.
+	Select "Custom connectors".
+	Click "New custom connector" → "Create from blank".
+
+Step 2: Configure General Settings
+	Enter Connector Name: EmployeeDataAPI
+	Click Continue.
+
+Step 3: Set Up General Information
+	Scheme: HTTP
+	Host: training.winvinaya.com
+	Base URL: /demo/api/c/
+	Click Security (skip for now, as we will configure API key later).
+
+Step 4: Configure Authentication
+	Choose API Key as the authentication method.
+	Parameter label: x-api-key
+	Parameter name: x-api-key
+	Location: Header
+	Click Definition.
+
+Step 5: Define API Actions
+	Now, add each API endpoint.
+
+1. Add "Create Employee" Action
+	Click New action → Fill in details:
+	Summary: Add a new employee
+	Description: Creates a new employee in the system
+	Operation ID: CreateEmployee
+	Visibility: None
+
+	Request:
+	Click Import from sample.
+
+	Select POST.
+	Enter URL: http://training.winvinaya.com/demo/api/c/employees
+
+	Headers:
+	x-api-key testwithcustomconectorusingpowerautomate
+
+	Body:
+	{
+	"name": "John Doe",
+	"email": "john.doe@example.com",
+	"phone": "1234567890",
+	"department": "IT",
+	"status": "active"
+	}
+	Click Import.
+
+2. Add "Get Employee by ID" Action
+	Click New action.
+	Summary: Get employee details
+	Description: Fetches employee details by ID
+	Operation ID: GetEmployee
+	Visibility: None
+
+	Request:
+	Click Import from sample.
+
+	Select GET.
+	Enter URL: http://training.winvinaya.com/demo/api/c/employees/{id}
+
+	Headers:
+	x-api-key testwithcustomconectorusingpowerautomate
+
+	Click Import.
+
+Step 6: Test the Connector
+	Click Test in the top menu.
+	Click New Connection.
+	Enter your API Key (testwithcustomconectorusingpowerautomate).
+	Click Create Connection.
+	Try making API requests to verify that everything works.
