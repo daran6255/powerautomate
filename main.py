@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, render_template
 from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS
 from datetime import datetime
@@ -30,6 +30,10 @@ def require_api_key(f):
             return jsonify({'message': 'Unauthorized'}), 401
         return f(*args, **kwargs)
     return decorated_function
+
+@app.route('/')
+def home():
+    return render_template('index.html')
 
 # Create Employee
 @app.route('/demo/api/c/employees', methods=['POST'])
